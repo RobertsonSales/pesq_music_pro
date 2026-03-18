@@ -3,62 +3,1011 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pesq Music & Player PRO: versão ilimitada do seu player favorito com pagamento único, acesso vitalício, animações suaves e FAQ expansível.">
     <title>Pesq Music & Player PRO – Ilimitado</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
-        body { background:#0d0d1f; color:#fff; font-family:'Segoe UI',sans-serif; }
-        .hero { background:linear-gradient(135deg,#667eea,#764ba2); padding:100px 20px; text-align:center; }
-        .price { font-size:4rem; font-weight:900; color:#ffd200; }
-        .badge-pro { background:#f5576c; padding:6px 16px; border-radius:30px; font-size:0.9rem; }
+        :root {
+            --bg: #070b1a;
+            --bg-soft: #0f1630;
+            --surface: rgba(255, 255, 255, 0.08);
+            --surface-strong: rgba(255, 255, 255, 0.12);
+            --border: rgba(255, 255, 255, 0.12);
+            --text: #f8faff;
+            --muted: #b9c3df;
+            --primary: #8b5cf6;
+            --secondary: #5eead4;
+            --accent: #ffd54a;
+            --danger: #f5576c;
+            --success: #22c55e;
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+            --radius-xl: 30px;
+            --radius-lg: 22px;
+            --radius-md: 16px;
+            --container: 1180px;
+            --transition-smooth: 700ms cubic-bezier(0.22, 1, 0.36, 1);
+            --transition-fast: 260ms ease;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.28), transparent 30%),
+                radial-gradient(circle at 85% 15%, rgba(94, 234, 212, 0.18), transparent 25%),
+                radial-gradient(circle at 50% 85%, rgba(245, 87, 108, 0.16), transparent 22%),
+                linear-gradient(180deg, #0a1023 0%, #070b1a 35%, #060913 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .page-shell {
+            position: relative;
+            isolation: isolate;
+        }
+
+        .page-shell::before,
+        .page-shell::after {
+            content: "";
+            position: fixed;
+            width: 340px;
+            height: 340px;
+            border-radius: 999px;
+            filter: blur(70px);
+            opacity: 0.35;
+            z-index: -1;
+            pointer-events: none;
+            animation: floatBlob 16s ease-in-out infinite;
+        }
+
+        .page-shell::before {
+            top: 40px;
+            left: -80px;
+            background: rgba(139, 92, 246, 0.45);
+        }
+
+        .page-shell::after {
+            right: -100px;
+            bottom: 5%;
+            background: rgba(94, 234, 212, 0.25);
+            animation-delay: -8s;
+        }
+
+        .container-custom {
+            width: min(100% - 24px, var(--container));
+            margin: 0 auto;
+        }
+
+        .section-space {
+            padding: 88px 0;
+        }
+
+        .hero {
+            padding: 40px 0 70px;
+        }
+
+        .hero-panel {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 36px;
+            background:
+                linear-gradient(135deg, rgba(102, 126, 234, 0.22), rgba(118, 75, 162, 0.22)),
+                rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-panel::before,
+        .hero-panel::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            pointer-events: none;
+        }
+
+        .hero-panel::before {
+            width: 260px;
+            height: 260px;
+            top: -90px;
+            right: -70px;
+            background: radial-gradient(circle, rgba(255, 213, 74, 0.30), transparent 65%);
+            animation: pulseGlow 8s ease-in-out infinite;
+        }
+
+        .hero-panel::after {
+            width: 220px;
+            height: 220px;
+            bottom: -80px;
+            left: -60px;
+            background: radial-gradient(circle, rgba(94, 234, 212, 0.22), transparent 65%);
+            animation: pulseGlow 9s ease-in-out infinite reverse;
+        }
+
+        .hero-content,
+        .hero-card {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #e9edff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+        }
+
+        .eyebrow:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 213, 74, 0.35);
+            background: rgba(255, 255, 255, 0.11);
+        }
+
+        .eyebrow i {
+            color: var(--accent);
+        }
+
+        .display-title {
+            font-size: clamp(2.4rem, 5vw, 4.6rem);
+            line-height: 1.05;
+            font-weight: 800;
+            margin: 18px 0 16px;
+            letter-spacing: -0.03em;
+        }
+
+        .badge-pro {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            margin-left: 12px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #f5576c, #ff7b54);
+            color: #fff;
+            font-size: 0.28em;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 12px 24px rgba(245, 87, 108, 0.28);
+            animation: pulseBadge 3.2s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            color: var(--muted);
+            font-size: clamp(1rem, 2vw, 1.22rem);
+            max-width: 650px;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            color: #eef3ff;
+            font-weight: 600;
+            transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+        }
+
+        .hero-tag:hover {
+            transform: translateY(-3px);
+            border-color: rgba(94, 234, 212, 0.38);
+            background: rgba(255, 255, 255, 0.11);
+        }
+
+        .hero-tag i {
+            color: var(--secondary);
+        }
+
+        .hero-card {
+            padding: 28px;
+            border-radius: 28px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.28);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.34);
+            border-color: rgba(255, 213, 74, 0.3);
+        }
+
+        .pricing-label {
+            color: var(--muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.84rem;
+        }
+
+        .price-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+            margin: 12px 0 10px;
+            flex-wrap: wrap;
+        }
+
+        .currency {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-top: 16px;
+        }
+
+        .price {
+            font-size: clamp(3.4rem, 8vw, 5rem);
+            line-height: 0.9;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            color: var(--accent);
+            text-shadow: 0 0 25px rgba(255, 213, 74, 0.18);
+        }
+
+        .cents {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: rgba(255, 213, 74, 0.85);
+            margin-top: 12px;
+        }
+
+        .pricing-note {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .check-list {
+            display: grid;
+            gap: 12px;
+            margin: 20px 0 28px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #f4f7ff;
+            transition: transform var(--transition-fast), opacity var(--transition-fast);
+        }
+
+        .check-item:hover {
+            transform: translateX(4px);
+        }
+
+        .check-item i {
+            color: var(--success);
+            margin-top: 3px;
+        }
+
+        .btn-cta {
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            min-height: 60px;
+            padding: 14px 22px;
+            border: none;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #ffd54a, #ffb703);
+            color: #111827;
+            font-size: 1.05rem;
+            font-weight: 800;
+            text-align: center;
+            box-shadow: 0 18px 34px rgba(255, 183, 3, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+            isolation: isolate;
+        }
+
+        .btn-cta::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.5) 50%, transparent 80%);
+            transform: translateX(-140%);
+            transition: transform 0.9s ease;
+            z-index: -1;
+        }
+
+        .btn-cta:hover::before,
+        .btn-cta:focus::before {
+            transform: translateX(140%);
+        }
+
+        .btn-cta:hover,
+        .btn-cta:focus {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 22px 42px rgba(255, 183, 3, 0.35);
+            filter: brightness(1.02);
+            color: #111827;
+        }
+
+        .cta-support {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            max-width: 760px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 1.06rem;
+        }
+
+        .feature-card {
+            height: 100%;
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 213, 74, 0.35);
+            box-shadow: 0 28px 46px rgba(0, 0, 0, 0.24);
+            background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+        }
+
+        .feature-card.feature-highlight {
+            border-color: rgba(255, 213, 74, 0.4);
+            background: linear-gradient(180deg, rgba(255, 213, 74, 0.12), rgba(255, 255, 255, 0.05));
+        }
+
+        .feature-icon {
+            width: 58px;
+            height: 58px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            margin-bottom: 18px;
+            font-size: 1.4rem;
+            background: rgba(255, 255, 255, 0.09);
+            color: var(--accent);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.08) rotate(-4deg);
+            background: rgba(255, 213, 74, 0.14);
+        }
+
+        .feature-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .info-strip {
+            padding: 24px 28px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(94,234,212,0.12), rgba(139,92,246,0.14));
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.16);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .info-strip:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 24px 42px rgba(0, 0, 0, 0.22);
+            border-color: rgba(94, 234, 212, 0.26);
+        }
+
+        .info-strip p {
+            margin: 0;
+            color: #edf5ff;
+            line-height: 1.7;
+        }
+
+        .contact-card,
+        .faq-wrapper {
+            padding: 30px;
+            border-radius: 28px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-card {
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(37, 211, 102, 0.25);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.30);
+        }
+
+        .whatsapp-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 22px;
+            border-radius: 16px;
+            background: #25d366;
+            color: #08140d;
+            font-weight: 800;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+            box-shadow: 0 16px 34px rgba(37, 211, 102, 0.26);
+        }
+
+        .whatsapp-link:hover,
+        .whatsapp-link:focus {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(37, 211, 102, 0.34);
+            filter: brightness(1.03);
+            color: #08140d;
+        }
+
+        .faq-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        .faq-item {
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.04);
+            overflow: hidden;
+            transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 213, 74, 0.25);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .faq-item.is-open {
+            border-color: rgba(94, 234, 212, 0.25);
+            background: rgba(255,255,255,0.07);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 22px 22px;
+            border: 0;
+            background: transparent;
+            color: var(--text);
+            text-align: left;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .faq-question:hover {
+            color: #ffffff;
+        }
+
+        .faq-icon {
+            width: 38px;
+            height: 38px;
+            flex: 0 0 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--accent);
+            transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease;
+        }
+
+        .faq-item.is-open .faq-icon {
+            transform: rotate(180deg);
+            background: rgba(255, 213, 74, 0.14);
+            color: #ffe58a;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 22px 22px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .faq-item.is-open .faq-answer {
+            opacity: 1;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(34px) scale(0.985);
+            transition:
+                opacity var(--transition-smooth),
+                transform var(--transition-smooth);
+            transition-delay: var(--reveal-delay, 0ms);
+            will-change: opacity, transform;
+        }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        footer {
+            padding: 26px 0 36px;
+            color: var(--muted);
+        }
+
+        .footer-text {
+            margin: 0;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .sticky-mobile-cta {
+            position: sticky;
+            bottom: 14px;
+            z-index: 50;
+            padding-top: 18px;
+        }
+
+        .sticky-mobile-cta .btn-cta {
+            width: 100%;
+        }
+
+        @keyframes floatBlob {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+            50% { transform: translate3d(0, -18px, 0) scale(1.04); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.82; }
+        }
+
+        @keyframes pulseBadge {
+            0%, 100% { transform: translateY(0); box-shadow: 0 12px 24px rgba(245, 87, 108, 0.28); }
+            50% { transform: translateY(-2px); box-shadow: 0 16px 30px rgba(245, 87, 108, 0.36); }
+        }
+
+        @media (max-width: 991.98px) {
+            .hero {
+                padding-top: 24px;
+            }
+
+            .hero-panel {
+                border-radius: 28px;
+            }
+
+            .hero-content,
+            .hero-card {
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .section-space {
+                padding: 70px 0;
+            }
+
+            .hero-panel {
+                padding: 10px;
+            }
+
+            .hero-tags {
+                gap: 10px;
+            }
+
+            .hero-tag {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-card,
+            .feature-card,
+            .contact-card,
+            .faq-wrapper,
+            .info-strip {
+                border-radius: 22px;
+            }
+
+            .price-line {
+                align-items: baseline;
+            }
+
+            .faq-question {
+                padding: 18px 18px;
+            }
+
+            .faq-answer-inner {
+                padding: 0 18px 18px;
+            }
+
+            .sticky-mobile-cta {
+                display: block;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .sticky-mobile-cta {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+                animation: none !important;
+            }
+
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="hero">
-    <h1 class="display-4 fw-bold">Pesq Music & Player<span class="badge-pro">PRO</span></h1>
-    <p class="lead mt-3">A versão ILIMITADA do seu player favorito</p>
-    
-    <div class="mt-5">
-        <span class="price">R$ 34</span><span style="font-size:1.8rem;opacity:0.7;">,99</span>
-        <p class="text-muted">Pagamento único • Vitalício • Sem assinatura</p>
+    <div class="page-shell">
+        <main>
+            <section class="hero">
+                <div class="container-custom">
+                    <div class="hero-panel p-3 p-lg-4 reveal" style="--reveal-delay: 80ms;">
+                        <div class="row align-items-center g-4 g-lg-5 p-2 p-md-3 p-lg-4">
+                            <div class="col-lg-7 reveal" style="--reveal-delay: 120ms;">
+                                <div class="hero-content">
+                                    <span class="eyebrow">
+                                        <i class="bi bi-stars"></i>
+                                        Versão ilimitada com acesso vitalício
+                                    </span>
+
+                                    <h1 class="display-title">
+                                        Pesq Music &amp; Player
+                                        <span class="badge-pro">PRO</span>
+                                    </h1>
+
+                                    <p class="hero-subtitle mb-0">
+                                        A versão ILIMITADA do seu player favorito, com uma interface premium, foco total na conversão e uma navegação muito mais intuitiva em qualquer dispositivo.
+                                    </p>
+
+                                    <div class="hero-tags">
+                                        <span class="hero-tag"><i class="bi bi-check-circle-fill"></i>Pagamento único</span>
+                                        <span class="hero-tag"><i class="bi bi-infinity"></i>Acesso vitalício</span>
+                                        <span class="hero-tag"><i class="bi bi-badge-ad-fill"></i>Sem anúncios</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5 reveal" style="--reveal-delay: 200ms;">
+                                <aside class="hero-card" aria-label="Resumo da oferta PRO">
+                                    <div class="pricing-label">Oferta especial</div>
+
+                                    <div class="price-line" aria-label="Preço da versão PRO">
+                                        <span class="currency">R$</span>
+                                        <span class="price">34</span>
+                                        <span class="cents">,99</span>
+                                    </div>
+
+                                    <p class="pricing-note">Pagamento único • Vitalício • Sem assinatura</p>
+
+                                    <div class="check-list">
+                                        <div class="check-item"><i class="bi bi-check2-circle"></i><span>Liberação da versão PRO com acesso estendido</span></div>
+                                        <div class="check-item"><i class="bi bi-check2-circle"></i><span>Experiência contínua sem anúncios e sem pedido de doações</span></div>
+                                        <div class="check-item"><i class="bi bi-check2-circle"></i><span>Prioridade para receber versões atualizadas</span></div>
+                                    </div>
+
+                                    <a href="https://pay.kiwify.com.br/JtPnXZ1" class="btn-cta" target="_blank" rel="noopener noreferrer">
+                                        <i class="bi bi-lightning-charge-fill"></i>
+                                        QUERO A VERSÃO PRO AGORA
+                                    </a>
+
+                                    <div class="cta-support">
+                                        <i class="bi bi-shield-lock-fill"></i>
+                                        <span>Compra rápida e acesso facilitado</span>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-space pt-0">
+                <div class="container-custom">
+                    <div class="text-center mb-5 reveal" style="--reveal-delay: 60ms;">
+                        <h2 class="section-title">O que você ganha na versão PRO</h2>
+                        <p class="section-subtitle">
+                            Todos os benefícios originais foram preservados e reorganizados em uma apresentação mais clara, moderna e escaneável para facilitar a decisão do usuário.
+                        </p>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6 col-xl-4 reveal" style="--reveal-delay: 80ms;">
+                            <div class="feature-card feature-highlight">
+                                <div class="feature-icon"><i class="bi bi-collection-play-fill"></i></div>
+                                <h3>Até 100 itens &amp; Vitalício</h3>
+                                <p>Playlist com limite de até 100 links salvos, com acesso contínuo e sem recorrência mensal.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 reveal" style="--reveal-delay: 150ms;">
+                            <div class="feature-card">
+                                <div class="feature-icon"><i class="bi bi-slash-circle-fill"></i></div>
+                                <h3>Sem anúncios sempre!</h3>
+                                <p>Experiência mais limpa, direta e confortável, além de remover pedidos de doações durante o uso.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 reveal" style="--reveal-delay: 220ms;">
+                            <div class="feature-card">
+                                <div class="feature-icon"><i class="bi bi-arrow-repeat"></i></div>
+                                <h3>Novas versões</h3>
+                                <p>Prioridade para receber versões atualizadas, mantendo sua experiência sempre em evolução.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pb-5">
+                <div class="container-custom">
+                    <div class="info-strip text-center text-lg-start reveal" style="--reveal-delay: 80ms;">
+                        <p>
+                            <strong>Fluxo simples:</strong> após a compra, basta enviar seu comprovante de pagamento via WhatsApp para agilizar o atendimento e a confirmação.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-space pt-4">
+                <div class="container-custom">
+                    <div class="contact-card text-center reveal" style="--reveal-delay: 80ms;">
+                        <h2 class="section-title mb-3">Envie seu comprovante com rapidez</h2>
+                        <p class="section-subtitle mb-4">
+                            Mantive o canal original de contato, mas com melhor destaque visual para aumentar confiança, clareza e conversão.
+                        </p>
+
+                        <a href="https://wa.me/5521992645554" class="whatsapp-link" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-whatsapp fs-4"></i>
+                            Envie seu comprovante de pagamento via WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-space pt-0">
+                <div class="container-custom">
+                    <div class="faq-wrapper reveal" style="--reveal-delay: 80ms;">
+                        <div class="text-center mb-4">
+                            <h2 class="section-title mb-2">Perguntas frequentes</h2>
+                            <p class="section-subtitle mb-0">
+                                Acrescentei uma FAQ expansível com animações fluidas para reduzir dúvidas e tornar a navegação mais intuitiva.
+                            </p>
+                        </div>
+
+                        <div class="faq-list" data-faq>
+                            <div class="faq-item is-open">
+                                <button class="faq-question" type="button" aria-expanded="true" aria-controls="faq-1" id="faq-button-1">
+                                    <span>O pagamento é único ou recorrente?</span>
+                                    <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                                </button>
+                                <div class="faq-answer" id="faq-1" role="region" aria-labelledby="faq-button-1">
+                                    <div class="faq-answer-inner">
+                                        O pagamento é único. A própria oferta destaca o valor de R$ 34,99 com acesso vitalício, sem assinatura mensal.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-2" id="faq-button-2">
+                                    <span>Como eu envio o comprovante após a compra?</span>
+                                    <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                                </button>
+                                <div class="faq-answer" id="faq-2" role="region" aria-labelledby="faq-button-2">
+                                    <div class="faq-answer-inner">
+                                        Depois de concluir a compra, basta enviar o comprovante pelo link de WhatsApp presente na página. Isso mantém o fluxo original e deixa o próximo passo mais claro para o usuário.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-3" id="faq-button-3">
+                                    <span>Quais benefícios estão incluídos na versão PRO?</span>
+                                    <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                                </button>
+                                <div class="faq-answer" id="faq-3" role="region" aria-labelledby="faq-button-3">
+                                    <div class="faq-answer-inner">
+                                        A versão PRO mantém os benefícios destacados na página: até 100 itens salvos, experiência sem anúncios e prioridade nas versões atualizadas.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-4" id="faq-button-4">
+                                    <span>Essa página funciona bem no celular?</span>
+                                    <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                                </button>
+                                <div class="faq-answer" id="faq-4" role="region" aria-labelledby="faq-button-4">
+                                    <div class="faq-answer-inner">
+                                        Sim. A estrutura foi organizada para ser totalmente responsiva, com CTA fixo no mobile, cards adaptáveis e espaçamentos pensados para telas menores.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="container-custom sticky-mobile-cta reveal" style="--reveal-delay: 120ms;">
+            <a href="https://pay.kiwify.com.br/JtPnXZ1" class="btn-cta" target="_blank" rel="noopener noreferrer">
+                <i class="bi bi-cart-check-fill"></i>
+                Comprar agora por R$ 34,99
+            </a>
+        </div>
+
+        <footer>
+            <div class="container-custom">
+                <p class="footer-text reveal" style="--reveal-delay: 80ms;">
+                    Feito com ❤️ por Robertson Guimarães<br>
+                    Pesq Music &amp; Player PRO • Interface aprimorada para uma experiência mais atraente, intuitiva e responsiva.
+                </p>
+            </div>
+        </footer>
     </div>
 
-    <a href="https://pay.kiwify.com.br/JtPnXZ1" class="btn btn-lg btn-warning fw-bold mt-4 px-5 py-3" style="font-size:1.4rem;">
-        QUERO A VERSÃO PRO AGORA
-    </a>
-</div>
+    <script>
+        (function () {
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-<div class="container py-5">
-    <h2 class="text-center mb-5">O que você ganha na versão PRO:</h2>
-    <div class="row text-center">
-        <div class="col-md-4 mb-4">
-            <div class="card bg-white h-100" style="border:2px solid #ffd200;">
-                <div class="card-body">
-                    <h3>Até 100 itens & Vitalício</h3>
-                    <p class="text-muted">Playlist com limite de até 100 links salvos</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card bg-white h-100">
-                <div class="card-body">
-                    <h3>Sem Anúncios Sempre!</h3>
-                    <p class="text-muted">E sem pedido de doações</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card bg-white h-100">
-                <div class="card-body">
-                    <h3>Novas Versões</h3>
-                    <p class="text-muted">Prioridade nas versões atualizadas </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+            const revealElements = document.querySelectorAll('.reveal');
+            if (revealElements.length) {
+                if (reducedMotion || !('IntersectionObserver' in window)) {
+                    revealElements.forEach(el => el.classList.add('revealed'));
+                } else {
+                    const revealObserver = new IntersectionObserver((entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('revealed');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, {
+                        threshold: 0.12,
+                        rootMargin: '0px 0px -40px 0px'
+                    });
 
-<footer class="text-center py-4" style="background:#0a0a1e;">
-    <p>Feito com ❤️ por Robertson Guimarães • <a href="https://wa.me/5521988887777" style="color:#ffd200;">Dúvidas no WhatsApp</a></p>
-</footer>
+                    revealElements.forEach(el => revealObserver.observe(el));
+                }
+            }
+
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            function openFaq(item) {
+                const button = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                item.classList.add('is-open');
+                button.setAttribute('aria-expanded', 'true');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                answer.style.opacity = '1';
+            }
+
+            function closeFaq(item) {
+                const button = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                item.classList.remove('is-open');
+                button.setAttribute('aria-expanded', 'false');
+                answer.style.maxHeight = '0px';
+                answer.style.opacity = '0';
+            }
+
+            faqItems.forEach((item, index) => {
+                const button = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+
+                if (item.classList.contains('is-open')) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    answer.style.opacity = '1';
+                } else {
+                    answer.style.maxHeight = '0px';
+                    answer.style.opacity = '0';
+                }
+
+                button.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('is-open');
+
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) closeFaq(otherItem);
+                    });
+
+                    if (isOpen) {
+                        closeFaq(item);
+                    } else {
+                        openFaq(item);
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                faqItems.forEach(item => {
+                    if (item.classList.contains('is-open')) {
+                        const answer = item.querySelector('.faq-answer');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    }
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
